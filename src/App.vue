@@ -1,30 +1,44 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="d-flex align-items-center justify-content-center flex-column">
+    <!-- <Header /> -->
+    <div class="d-flex col-md-8 border border-primary">
+      <div class="col-2 border border-success">
+        <router-link to="/">Dashboard</router-link>
+      </div>
+      <div class="col-8 border border-primary">
+        <router-view />
+      </div>
+      <div class="col-2 border border-success">dsfghbkl;''</div>
+    </div>
   </div>
-  <router-view />
 </template>
 
+
+
+
+
+
+
+<script>
+// import LeftPanel from './components/LeftPanel/LeftPanel'
+export default {
+  components: {},
+};
+</script>
+
+
+
+
+
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.debt {
+    color: #ff4000
+}
+.credit{
+    color: #07e2b3;
 }
 </style>
