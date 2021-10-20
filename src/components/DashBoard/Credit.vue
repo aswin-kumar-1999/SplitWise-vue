@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      className="d-flex flex-wrap align-items-center justify-content-center px-4 py-3"
+      class="d-flex flex-wrap align-items-center justify-content-center p-3"
     >
       <img
         src="https://s3.amazonaws.com/splitwise/uploads/user/default_avatars/avatar-ruby36-100px.png"
@@ -9,9 +9,9 @@
         class="rounded-circle avatar"
         
       />
-      <div className="px-3 my-1">
+      <div class="px-3 my-1">
         {{name}}
-        <div className="credit">owe you INR {{amount}}</div>
+        <div class="credit">owe you INR {{amount.toFixed(2)}}</div>
       </div>
     </div>
   </div>

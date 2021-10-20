@@ -24,14 +24,20 @@
             <div className="row py-1 fs-6 ">
               <div className="col-sm-4 border-end text-center ">
                 total balance<br />
-                0
+                
+                <span v-show="total >= 0" class="credit">₹ {{
+                  total.toFixed(2)
+                }}</span>
+                <span v-show="total < 0" class="debt">₹ {{
+                  total.toFixed(2) * -1
+                }}</span>
               </div>
               <div className="col-sm-4 border-end text-center">
                 <div>
                   you owe
                   <span className="debt">
                     <br />
-                    ₹ 0
+                    ₹ {{ owe.toFixed(2) * -1 }}
                   </span>
                 </div>
               </div>
@@ -40,7 +46,7 @@
                   you are owed
                   <span className="credit">
                     <br />
-                    ₹ 0
+                    ₹ {{ lent.toFixed(2) }}
                   </span>
                 </div>
               </div>
@@ -53,14 +59,15 @@
         </div>
       </div>
       <div className="d-flex ">
-        <span className="border-end border-1 col-6">
-          <Debt  name="aswin" amount="200" />
+        <span className="border-end border-1 col-6 color">
+          <template v-for="(expense, index) in debt" :key="index">
+            <Debt :name="expense[0]" :amount="expense[1]" />
+          </template>
         </span>
-        <span className="border-start border-1 col-6 ">
-          <Credit
-            name="aswin"
-            amount="2000"
-          />
+        <span className="border-start border-1 col-6 color">
+          <template v-for="(expense, index) in credit" :key="index">
+            <Credit :name="expense[0]" :amount="expense[1]" />
+          </template>
         </span>
       </div>
     </div>
@@ -68,11 +75,75 @@
 </template>
 
 <script>
-import Credit from './Credit.vue'
-import Debt from './Debit.vue'
+import Credit from "./Credit.vue";
+import Debt from "./Debit.vue";
 export default {
-    name:'DashBoard',
-  components: {Debt,Credit},
+  name: "DashBoard",
+  data() {
+    return {
+      credit: [],
+      debt: [],
+      lent: 0,
+      owe: 0,
+    };
+  },
+  components: { Debt, Credit },
+  created() {
+    this.dataExtraction();
+  },
+  methods: {
+    dataExtraction() {
+      const user = "aswin";
+      this.credit = [];
+      this.debt = [];
+      for (
+        let index = 1;
+        index <= this.$store.state.transaction.last;
+        index++
+      ) {
+        if (this.$store.state.transaction[index]) {
+          if (this.$store.state.transaction[index].paid_by === user) {
+            const shareamount =
+              +this.$store.state.transaction[index].amount /
+              (this.$store.state.transaction[index].owes.length + 1);
+            const lent =
+              +this.$store.state.transaction[index].amount - shareamount;
+            const owesName =
+              this.$store.state.transaction[index].owes.join(", ");
+            this.credit = [
+              ...this.credit,
+              [
+                owesName,
+                shareamount,
+                this.$store.state.transaction[index].desc,
+              ],
+            ];
+            this.lent += lent;
+            console.log("dfas", this.lent, lent);
+          }
+          if (this.$store.state.transaction[index].owes.includes(user)) {
+            const shareamount =
+              +this.$store.state.transaction[index].amount /
+              (this.$store.state.transaction[index].owes.length + 1);
+            this.debt = [
+              ...this.debt,
+              [
+                this.$store.state.transaction[index].paid_by,
+                shareamount,
+                this.$store.state.transaction[index].desc,
+              ],
+            ];
+            this.owe -= shareamount;
+          }
+        }
+      }
+    },
+  },
+  computed: {
+    total() {
+      return this.lent + this.owe;
+    },
+  },
 };
 </script>
 
@@ -104,5 +175,8 @@ export default {
 .owe {
   color: grey;
   font-weight: 600;
+}
+.color{
+    color: rgb(100, 100, 100);
 }
 </style>
