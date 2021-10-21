@@ -8,8 +8,6 @@ export default createStore({
   state: { transaction, user, group, dashTransaction },
   mutations: {
     addNewExpense(state, { amount, paid_by, owes, desc, group: groupName }) {
-      // console.log(amount, paid_by, owes, desc, groupName)
-      // console.log(user)
       const lastTransaction = +transaction.last + 1;
       state.dashTransaction[lastTransaction] = {
         amount,

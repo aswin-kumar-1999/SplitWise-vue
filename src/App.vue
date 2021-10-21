@@ -50,6 +50,6 @@ export default {
   background: white;
   width: 350px;
   border-radius: 5px;
-  margin-top: 15vh;
+  margin-top: 10vh;
 }
 </style>

@@ -10,7 +10,10 @@
           <i class="fas fa-times" @click="$emit('close')"></i>
         </header>
 
-        <form onSubmit="{this.formHandler}">
+        <form
+          onSubmit="{this.formHandler}"
+          class="d-flex justify-content-center flex-column align-items-center"
+        >
           <div className="d-flex">
             <div className="row p-1">
               <div className="col-5">With you and :</div>
@@ -78,9 +81,9 @@
             <button
               type="button"
               className="px-3 my-1 rounded-pill"
-              onClick="{this.groupHandler}"
+              @click="popGroup = !popGroup"
             >
-              {this.state.group}
+              {{ group }}
             </button>
           </div>
         </form>
@@ -112,13 +115,21 @@
       @onSelectPayer="payerSelector"
       heading="Choose the payer"
     />
-    <Share v-if="popShare" :nameList="nameList" @close="shareHandler"/>
+    <Share v-if="popShare" :nameList="nameList" @close="shareHandler" />
+    <Group
+      v-if="popGroup"
+      :nameList="Object.keys($store.state.group)"
+      @onSelectPayer="groupSelector"
+      heading="Choose the group"
+    />
   </teleport>
 </template>
 
 <script>
 import BackDrop from "../UI/BackDrop.vue";
 import Paid from "./Paid.vue";
+import Group from "./Paid.vue";
+
 import Share from "./Share.vue";
 
 export default {
@@ -192,19 +203,26 @@ export default {
         this.nameErr = true;
       }
     },
-    shareHandler(unchecked){
-      console.log(unchecked)
-       const nameList = this.nameList.filter((name) => {
-            if (unchecked.includes(name)) {
-                return false
-            }
-            else {
-                return true
-            }
-        })
-        this.nameList=nameList
-        this.popShare=!this.popShare
-    }
+    shareHandler(unchecked) {
+      console.log(unchecked);
+      const nameList = this.nameList.filter((name) => {
+        if (unchecked.includes(name)) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+      this.nameList = nameList;
+      this.popShare = !this.popShare;
+    },
+    groupSelector(group) {
+      if (group !== "") {
+        const groupUser = this.$store.state.group[group].users;
+        this.group = group;
+        this.nameList = groupUser;
+      }
+      this.popGroup = !this.popGroup;
+    },
   },
   computed: {
     shareamount() {
@@ -216,7 +234,7 @@ export default {
       }
     },
   },
-  components: { BackDrop, Paid, Share },
+  components: { BackDrop, Paid, Share, Group },
   emits: ["close"],
 };
 </script>
