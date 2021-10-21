@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex align-items-center justify-content-center flex-column">
-    <!-- <Header /> -->
-    <div class="d-flex col-md-8 ">
-      <div class="col-2 center-panel ">
+    <Header />
+    <div class="d-flex col-md-8 center-panel">
+      <div class="col-2 ">
         <router-link to="/">Dashboard</router-link>
       </div>
       <div class="col-8 shadow bg-body rounded">
@@ -20,9 +20,10 @@
 
 
 <script>
+import Header from './components/Header/Header.vue'
 // import LeftPanel from './components/LeftPanel/LeftPanel'
 export default {
-  components: {},
+  components: {Header},
 };
 </script>
 
