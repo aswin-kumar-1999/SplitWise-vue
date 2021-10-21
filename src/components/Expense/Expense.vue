@@ -47,9 +47,17 @@
                 type="text"
                 className="col-9 mb-2"
                 placeholder="Enter a description"
+                v-model="description"
               />
               <br />
-              ₹ <input type="number" className="col-8" placeholder="0.00" />
+              ₹
+              <input
+                type="number"
+                className="col-8"
+                placeholder="0.00"
+                @keypress.enter="amountHandler"
+                @blur="amountHandler"
+              />
               <div v-if="err" className="error">enter the proper amount</div>
             </div>
           </div>
@@ -62,9 +70,7 @@
               and split
               <span className="credit" @click="shareHandler"> {{ share }}</span>
             </div>
-            <div className="text-center">
-              ({this.state.shareamount.toFixed(2)}/person)
-            </div>
+            <div className="text-center">{{ shareamount }} / person</div>
           </div>
           <div className="btn">
             <button
@@ -83,14 +89,14 @@
             <button
               type="button"
               className="btn btn-outline-secondary bg-opacity-10 col-3 me-2"
-              onClick="{this.props.onBackDrop}"
+              @click="$emit('close')"
             >
               Cancel
             </button>
             <button
               type="submit"
               className="btn px-3 btn-settle col-3 me-2"
-              onClick="{this.savehandler}"
+              @click="addExpenseHandler"
             >
               Save
             </button>
@@ -98,7 +104,7 @@
         </div>
       </div>
     </BackDrop>
-    {{popPayer}}
+    {{ popPayer }}
     <Paid
       v-if="popPayer"
       :nameList="nameList"
@@ -110,16 +116,15 @@
 
 <script>
 import BackDrop from "../UI/BackDrop.vue";
-import Paid from "./Paid.vue"
+import Paid from "./Paid.vue";
 export default {
   name: "Expense",
   data() {
     return {
       name: "",
       nameList: [],
-      owe: "",
+      owes: "",
       share: "equally",
-      shareamount: 0.0,
       group: "No group",
       splitShare: false,
       amount: 0,
@@ -145,16 +150,58 @@ export default {
     nameChange(event) {
       this.name = event.target.value;
     },
-    payerSelector(name){
-      console.log("name",name)
-      if(name !== ''){
-        this.payer=name;
+    amountHandler(event) {
+      const amount = +event.target.value;
+      if (amount !== 0) {
+        this.amount = amount;
+        this.err = false;
+      } else {
+        this.amount = 0;
+        this.err = true;
       }
-      this.popPayer=!this.popPayer
+    },
+    payerSelector(name) {
+      console.log("name", name);
+      if (name !== "") {
+        this.payer = name;
+      }
+      this.popPayer = !this.popPayer;
+    },
+    addExpenseHandler() {
+      if (this.nameList.length >= 2 && !this.err) {
+        const payer = this.payer === "you" ? "aswin" : this.payer;
+        this.nameErr = false;
+        const owes = this.nameList.filter((name) => name !== payer);
+        // const shareamount = this.amount / (owes.length + 1);
+
+        //Vuex
+        this.$store.dispatch("addExpense", {
+          amount: this.amount,
+          paid_by: payer,
+          owes,
+          desc: this.description,
+          group: this.group,
+        });
+
+        this.$emit("close");
+      }
+      if (this.nameList.length < 2) {
+        this.nameErr = true;
+      }
     },
   },
-  components: { BackDrop ,Paid},
-  emits:['close']
+  computed: {
+    shareamount() {
+      console.log("name", this.nameList, this.amount);
+      if (this.nameList.length !== 0 && this.amount > 0) {
+        return (+this.amount / this.nameList.length).toFixed(2);
+      } else {
+        return 0;
+      }
+    },
+  },
+  components: { BackDrop, Paid },
+  emits: ["close"],
 };
 </script>
 

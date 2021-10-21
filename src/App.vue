@@ -46,7 +46,7 @@ export default {
   color: white;
 }
 .card {
-  z-index:2;
+  z-index: 2;
   background: white;
   width: 350px;
   border-radius: 5px;

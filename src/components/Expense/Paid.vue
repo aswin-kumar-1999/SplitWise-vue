@@ -21,7 +21,7 @@
               :value="name"
             />
             <label class="form-check-label" for="flexRadioDefault1">
-              {{name}}
+              {{ name }}
             </label>
           </div>
         </div>

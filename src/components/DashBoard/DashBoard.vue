@@ -106,6 +106,8 @@ export default {
       const user = "aswin";
       this.credit = [];
       this.debt = [];
+      this.lent = 0;
+      this.owe = 0;
       for (
         let index = 1;
         index <= this.$store.state.transaction.last;
@@ -148,7 +150,7 @@ export default {
       }
     },
     addExpense() {
-      this.popExpense=!this.popExpense
+      this.popExpense = !this.popExpense;
       this.dataExtraction();
     },
   },
