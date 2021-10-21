@@ -22,6 +22,7 @@
         placeholder="Search here"
         aria-describedby="basic-addon1"
         v-model="search"
+        @keyup="searchHandler"
       />
     </div>
     <router-link to="expense" class="route">
@@ -30,24 +31,16 @@
         All expensives
       </div>
     </router-link>
-    <div className="left-links group-user-tag">Groups</div>
+    <div className="left-links group-user-tag p-2">Groups</div>
 
-    <div v-for="(gname, index) in group" :key="index" class="p-2 my-1">
-      <Group
-        :display="groupDisplay[index]"
-        :uname="gname"
-        parentCallback="{this.getChildData}"
-      />
+    <div v-for="(gname, index) in group" :key="index">
+      <Group :display="groupDisplay[index]" :uname="gname" />
     </div>
 
-    <div className="left-links group-user-tag">Friends</div>
+    <div className="left-links group-user-tag p-2">Friends</div>
 
-    <div v-for="(uname, index) in users" :key="index" class="p-2 my-1">
-      <Users
-        :display="usersDisplay[index]"
-        :uname="uname"
-        parentCallback="this.getChildData"
-      />
+    <div v-for="(uname, index) in users" :key="index">
+      <Users :display="usersDisplay[index]" :uname="uname" />
     </div>
   </div>
 </template>
@@ -79,6 +72,39 @@ export default {
         this.usersDisplay = [...this.usersDisplay, "block"];
       }
     },
+    searchHandler() {
+      for (let key in this.$store.state.user) {
+        if (!this.users.includes(key)) {
+          this.users = [...this.users, key];
+          this.usersDisplay = [...this.usersDisplay, "block"];
+        }
+      }
+      let newGroupDisplay = this.groupDisplay.map((display, index) => {
+        if (
+          this.group[index].toLowerCase().includes(this.search.toLowerCase())
+        ) {
+          return "block";
+        } else {
+          return "none";
+        }
+      });
+      let newUsersDisplay = this.usersDisplay.map((display, index) => {
+        if (
+          this.users[index].toLowerCase().includes(this.search.toLowerCase())
+        ) {
+          return "block";
+        } else {
+          return "none";
+        }
+      });
+      if (
+        JSON.stringify(newUsersDisplay) !== JSON.stringify(this.usersDisplay) ||
+        JSON.stringify(newGroupDisplay) !== JSON.stringify(this.groupDisplay)
+      ) {
+        this.usersDisplay = newUsersDisplay;
+        this.groupDisplay = newGroupDisplay;
+      }
+    },
   },
   created() {
     this.storeData();
@@ -88,12 +114,6 @@ export default {
 </script>
 
 <style scoped>
-.route {
-  color: #07e2b3;
-  width: 180px;
-  padding: 10px;
-  text-decoration: none;
-}
 .input-group {
   width: 180px;
 }

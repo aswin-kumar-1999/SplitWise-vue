@@ -66,4 +66,10 @@ export default {
 .center{
   width: 800px;
 }
+.route {
+  color: #07e2b3;
+  width: 180px;
+  padding: 10px;
+  text-decoration: none;
+}
 </style>
