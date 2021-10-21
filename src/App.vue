@@ -1,14 +1,15 @@
 <template>
   <div class="d-flex align-items-center justify-content-center flex-column">
     <Header />
-    <div class="d-flex col-md-8 center-panel">
-      <div class="col-2 ">
-        <router-link to="/">Dashboard</router-link>
+    <div class="d-flex col-md-8 panel">
+      <div class="left">
+        <!-- <router-link to="/">Dashboard</router-link> -->    
+          <LeftPanel />
       </div>
-      <div class="col-8 shadow bg-body rounded">
+      <div class="center shadow bg-body rounded">
         <router-view />
       </div>
-      <div class="col-2">dsfghbkl;''</div>
+      <div class="right">dsfghbkl;''</div>
     </div>
   </div>
 </template>
@@ -20,10 +21,10 @@
 
 
 <script>
-import Header from './components/Header/Header.vue'
-// import LeftPanel from './components/LeftPanel/LeftPanel'
+import Header from "./components/Header/Header.vue";
+import LeftPanel from "./components/LeftPanel/LeftPanel";
 export default {
-  components: {Header},
+  components: { Header, LeftPanel },
 };
 </script>
 
@@ -33,9 +34,12 @@ export default {
 
 
 <style>
-#nav a.router-link-exact-active {
-  color: #42b983;
+.router-link-active {
+  background: rgba(236, 236, 236, 0.836);
+  border-left: 8px solid #07e2b3;
+  width: 180px;
 }
+
 .debt {
   color: #ff4000;
 }
@@ -53,7 +57,13 @@ export default {
   border-radius: 5px;
   margin-top: 10vh;
 }
-.center-panel {
+.panel {
   min-height: 100vh;
+}
+.left, .right{
+  width: 200px;
+}
+.center{
+  width: 800px;
 }
 </style>

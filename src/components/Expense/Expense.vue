@@ -3,8 +3,17 @@
     <BackDrop>
       <div class="card">
         <header
-          class="d-flex justify-content-between align-items-center
-                             px-2 py-1 fs-5 fw-bold rounded-top-3 header"
+          class="
+            d-flex
+            justify-content-between
+            align-items-center
+            px-2
+            py-1
+            fs-5
+            fw-bold
+            rounded-top-3
+            header
+          "
         >
           <span>Add an expense</span>
           <i class="fas fa-times" @click="$emit('close')"></i>
@@ -31,7 +40,7 @@
                 <div
                   v-for="name in nameList"
                   :key="name"
-                  class="m-2 px-2 border border-2 rounded-pill "
+                  class="m-2 px-2 border border-2 rounded-pill"
                 >
                   {{ name }}
                 </div>
