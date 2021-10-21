@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # split-wise
 
 ## Project setup
@@ -23,7 +22,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-=======
-# Split-wise-vue
-
->>>>>>> a95f9141ed77a0008f782e5acd20160fde2b49a6
