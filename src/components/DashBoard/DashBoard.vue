@@ -14,7 +14,11 @@
           >
             <h3>Dashboard</h3>
             <div class="d-flex justify-content-between">
-              <button type="button" class="btn btn-expense">
+              <button
+                type="button"
+                class="btn btn-expense"
+                @click="popExpense = !popExpense"
+              >
                 Add an expense
               </button>
               <button type="button" class="btn btn-settle">Settle up</button>
@@ -24,13 +28,13 @@
             <div className="row py-1 fs-6 ">
               <div className="col-sm-4 border-end text-center ">
                 total balance<br />
-                
-                <span v-show="total >= 0" class="credit">₹ {{
-                  total.toFixed(2)
-                }}</span>
-                <span v-show="total < 0" class="debt">₹ {{
-                  total.toFixed(2) * -1
-                }}</span>
+
+                <span v-show="total >= 0" class="credit"
+                  >₹ {{ total.toFixed(2) }}</span
+                >
+                <span v-show="total < 0" class="debt"
+                  >₹ {{ total.toFixed(2) * -1 }}</span
+                >
               </div>
               <div className="col-sm-4 border-end text-center">
                 <div>
@@ -72,11 +76,16 @@
       </div>
     </div>
   </div>
+  <div v-if="popExpense">
+    <Expense @close="addExpense" />
+  </div>
 </template>
 
 <script>
 import Credit from "./Credit.vue";
 import Debt from "./Debit.vue";
+import Expense from "../Expense/Expense.vue";
+
 export default {
   name: "DashBoard",
   data() {
@@ -85,9 +94,10 @@ export default {
       debt: [],
       lent: 0,
       owe: 0,
+      popExpense: false,
     };
   },
-  components: { Debt, Credit },
+  components: { Debt, Credit, Expense },
   created() {
     this.dataExtraction();
   },
@@ -119,7 +129,6 @@ export default {
               ],
             ];
             this.lent += lent;
-            console.log("dfas", this.lent, lent);
           }
           if (this.$store.state.transaction[index].owes.includes(user)) {
             const shareamount =
@@ -137,6 +146,10 @@ export default {
           }
         }
       }
+    },
+    addExpense() {
+      this.popExpense=!this.popExpense
+      this.dataExtraction();
     },
   },
   computed: {
@@ -176,7 +189,7 @@ export default {
   color: grey;
   font-weight: 600;
 }
-.color{
-    color: rgb(100, 100, 100);
+.color {
+  color: rgb(100, 100, 100);
 }
 </style>

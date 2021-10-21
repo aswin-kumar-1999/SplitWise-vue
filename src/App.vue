@@ -36,9 +36,20 @@ export default {
   color: #42b983;
 }
 .debt {
-    color: #ff4000
+  color: #ff4000;
 }
-.credit{
-    color: #07e2b3;
+.credit {
+  color: #07e2b3;
+}
+.header {
+  background: #07e2b3;
+  color: white;
+}
+.card {
+  z-index:2;
+  background: white;
+  width: 350px;
+  border-radius: 5px;
+  margin-top: 15vh;
 }
 </style>
