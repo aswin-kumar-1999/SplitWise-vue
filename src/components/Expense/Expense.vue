@@ -68,7 +68,9 @@
                 {{ payer }}
               </span>
               and split
-              <span className="credit" @click="shareHandler"> {{ share }}</span>
+              <span className="credit" @click="popShare = !popShare">
+                {{ share }}</span
+              >
             </div>
             <div className="text-center">{{ shareamount }} / person</div>
           </div>
@@ -104,19 +106,21 @@
         </div>
       </div>
     </BackDrop>
-    {{ popPayer }}
     <Paid
       v-if="popPayer"
       :nameList="nameList"
       @onSelectPayer="payerSelector"
       heading="Choose the payer"
-    />}
+    />
+    <Share v-if="popShare" :nameList="nameList" @close="shareHandler"/>
   </teleport>
 </template>
 
 <script>
 import BackDrop from "../UI/BackDrop.vue";
 import Paid from "./Paid.vue";
+import Share from "./Share.vue";
+
 export default {
   name: "Expense",
   data() {
@@ -126,12 +130,12 @@ export default {
       owes: "",
       share: "equally",
       group: "No group",
-      splitShare: false,
       amount: 0,
       description: "",
       err: false,
       payer: "you",
       groupName: [],
+      popShare: false,
       popPayer: false,
       popGroup: false,
       nameErr: false,
@@ -172,7 +176,6 @@ export default {
         const payer = this.payer === "you" ? "aswin" : this.payer;
         this.nameErr = false;
         const owes = this.nameList.filter((name) => name !== payer);
-        // const shareamount = this.amount / (owes.length + 1);
 
         //Vuex
         this.$store.dispatch("addExpense", {
@@ -189,6 +192,19 @@ export default {
         this.nameErr = true;
       }
     },
+    shareHandler(unchecked){
+      console.log(unchecked)
+       const nameList = this.nameList.filter((name) => {
+            if (unchecked.includes(name)) {
+                return false
+            }
+            else {
+                return true
+            }
+        })
+        this.nameList=nameList
+        this.popShare=!this.popShare
+    }
   },
   computed: {
     shareamount() {
@@ -200,7 +216,7 @@ export default {
       }
     },
   },
-  components: { BackDrop, Paid },
+  components: { BackDrop, Paid, Share },
   emits: ["close"],
 };
 </script>
