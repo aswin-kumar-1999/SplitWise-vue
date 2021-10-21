@@ -3,7 +3,7 @@
     <BackDrop>
       <div class="card">
         <header
-          className="d-flex justify-content-between align-items-center
+          class="d-flex justify-content-between align-items-center
                              px-2 py-1 fs-5 fw-bold rounded-top-3 header"
         >
           <span>Add an expense</span>
@@ -14,24 +14,24 @@
           onSubmit="{this.formHandler}"
           class="d-flex justify-content-center flex-column align-items-center"
         >
-          <div className="d-flex">
-            <div className="row p-1">
-              <div className="col-5">With you and :</div>
+          <div class="d-flex">
+            <div class="row p-1">
+              <div class="col-5">With you and :</div>
               <input
                 type="text"
-                className="col-6"
+                class="col-6"
                 placeholder="Enter the name"
                 @keypress.enter="nameHandler"
                 @blur="nameHandler"
                 @change="nameChange"
                 :value="name"
               />
-              <div v-if="nameErr" className="error">Enter atleast two name</div>
+              <div v-if="nameErr" class="error">Enter atleast two name</div>
               <div class="d-flex flex-wrap flex-row">
                 <div
                   v-for="name in nameList"
                   :key="name"
-                  className="m-2 px-2 border border-2 rounded-pill "
+                  class="m-2 px-2 border border-2 rounded-pill "
                 >
                   {{ name }}
                 </div>
@@ -39,16 +39,16 @@
             </div>
           </div>
           <hr />
-          <div className="d-flex ps-3 pe-1">
+          <div class="d-flex ps-3 pe-1">
             <img
               src="https://s3.amazonaws.com/splitwise/uploads/category/icon/square_v2/uncategorized/general@2x.png"
               class="category rounded-3"
               alt="img"
             />
-            <div className="ps-2">
+            <div class="ps-2">
               <input
                 type="text"
-                className="col-9 mb-2"
+                class="col-9 mb-2"
                 placeholder="Enter a description"
                 v-model="description"
               />
@@ -56,31 +56,31 @@
               ₹
               <input
                 type="number"
-                className="col-8"
+                class="col-8"
                 placeholder="0.00"
                 @keypress.enter="amountHandler"
                 @blur="amountHandler"
               />
-              <div v-if="err" className="error">enter the proper amount</div>
+              <div v-if="err" class="error">enter the proper amount</div>
             </div>
           </div>
-          <div className="my-2 px-3">
-            <div className="text-center">
+          <div class="my-2 px-3">
+            <div class="text-center">
               Paid by
-              <span className="credit" @click="popPayer = !popPayer">
+              <span class="credit" @click="popPayer = !popPayer">
                 {{ payer }}
               </span>
               and split
-              <span className="credit" @click="popShare = !popShare">
+              <span class="credit" @click="popShare = !popShare">
                 {{ share }}</span
               >
             </div>
-            <div className="text-center">{{ shareamount }} / person</div>
+            <div class="text-center">{{ shareamount }} / person</div>
           </div>
-          <div className="btn">
+          <div class="btn">
             <button
               type="button"
-              className="px-3 my-1 rounded-pill"
+              class="px-3 my-1 rounded-pill"
               @click="popGroup = !popGroup"
             >
               {{ group }}
@@ -90,17 +90,17 @@
 
         <hr />
         <div>
-          <div className="row d-flex justify-content-end m-2">
+          <div class="row d-flex justify-content-end m-2">
             <button
               type="button"
-              className="btn btn-outline-secondary bg-opacity-10 col-3 me-2"
+              class="btn btn-outline-secondary bg-opacity-10 col-3 me-2"
               @click="$emit('close')"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn px-3 btn-settle col-3 me-2"
+              class="btn px-3 btn-settle col-3 me-2"
               @click="addExpenseHandler"
             >
               Save

@@ -21,12 +21,18 @@
               >
                 Add an expense
               </button>
-              <button type="button" class="btn btn-settle">Settle up</button>
+              <button
+                type="button"
+                class="btn btn-settle"
+                @click="popSettleUp = !popSettleUp"
+              >
+                Settle up
+              </button>
             </div>
           </div>
           <div class="border-top border-bottom border-2">
-            <div className="row py-1 fs-6 ">
-              <div className="col-sm-4 border-end text-center ">
+            <div class="row py-1 fs-6">
+              <div class="col-sm-4 border-end text-center">
                 total balance<br />
 
                 <span v-show="total >= 0" class="credit"
@@ -36,19 +42,19 @@
                   >₹ {{ total.toFixed(2) * -1 }}</span
                 >
               </div>
-              <div className="col-sm-4 border-end text-center">
+              <div class="col-sm-4 border-end text-center">
                 <div>
                   you owe
-                  <span className="debt">
+                  <span class="debt">
                     <br />
                     ₹ {{ owe.toFixed(2) * -1 }}
                   </span>
                 </div>
               </div>
-              <div className="col-sm-4 text-center">
+              <div class="col-sm-4 text-center">
                 <div>
                   you are owed
-                  <span className="credit">
+                  <span class="credit">
                     <br />
                     ₹ {{ lent.toFixed(2) }}
                   </span>
@@ -62,13 +68,13 @@
           <span>YOU ARE OWED</span>
         </div>
       </div>
-      <div className="d-flex ">
-        <span className="border-end border-1 col-6 color">
+      <div class="d-flex">
+        <span class="border-end border-1 col-6 color">
           <template v-for="(expense, index) in debt" :key="index">
             <Debt :name="expense[0]" :amount="expense[1]" />
           </template>
         </span>
-        <span className="border-start border-1 col-6 color">
+        <span class="border-start border-1 col-6 color">
           <template v-for="(expense, index) in credit" :key="index">
             <Credit :name="expense[0]" :amount="expense[1]" />
           </template>
@@ -79,12 +85,21 @@
   <div v-if="popExpense">
     <Expense @close="addExpense" />
   </div>
+  <Settle
+      v-if='popSettleUp'
+      :debt="debt"
+      :credit='credit'
+      user="aswin"
+      :total= (lent+owe)
+      @onClose="settleUpHandler"
+    />
 </template>
 
 <script>
 import Credit from "./Credit.vue";
 import Debt from "./Debit.vue";
 import Expense from "../Expense/Expense.vue";
+import Settle from '../Settle/Settle.vue';
 
 export default {
   name: "DashBoard",
@@ -95,9 +110,10 @@ export default {
       lent: 0,
       owe: 0,
       popExpense: false,
+      popSettleUp: false,
     };
   },
-  components: { Debt, Credit, Expense },
+  components: { Debt, Credit, Expense, Settle },
   created() {
     this.dataExtraction();
   },
@@ -110,38 +126,38 @@ export default {
       this.owe = 0;
       for (
         let index = 1;
-        index <= this.$store.state.transaction.last;
+        index <= this.$store.state.dashTransaction.last;
         index++
       ) {
-        if (this.$store.state.transaction[index]) {
-          if (this.$store.state.transaction[index].paid_by === user) {
+        if (this.$store.state.dashTransaction[index]) {
+          if (this.$store.state.dashTransaction[index].paid_by === user) {
             const shareamount =
-              +this.$store.state.transaction[index].amount /
-              (this.$store.state.transaction[index].owes.length + 1);
+              +this.$store.state.dashTransaction[index].amount /
+              (this.$store.state.dashTransaction[index].owes.length + 1);
             const lent =
-              +this.$store.state.transaction[index].amount - shareamount;
+              +this.$store.state.dashTransaction[index].amount - shareamount;
             const owesName =
-              this.$store.state.transaction[index].owes.join(", ");
+              this.$store.state.dashTransaction[index].owes.join(", ");
             this.credit = [
               ...this.credit,
               [
                 owesName,
                 shareamount,
-                this.$store.state.transaction[index].desc,
+                this.$store.state.dashTransaction[index].desc,
               ],
             ];
             this.lent += lent;
           }
-          if (this.$store.state.transaction[index].owes.includes(user)) {
+          if (this.$store.state.dashTransaction[index].owes.includes(user)) {
             const shareamount =
-              +this.$store.state.transaction[index].amount /
-              (this.$store.state.transaction[index].owes.length + 1);
+              +this.$store.state.dashTransaction[index].amount /
+              (this.$store.state.dashTransaction[index].owes.length + 1);
             this.debt = [
               ...this.debt,
               [
-                this.$store.state.transaction[index].paid_by,
+                this.$store.state.dashTransaction[index].paid_by,
                 shareamount,
-                this.$store.state.transaction[index].desc,
+                this.$store.state.dashTransaction[index].desc,
               ],
             ];
             this.owe -= shareamount;
@@ -153,6 +169,12 @@ export default {
       this.popExpense = !this.popExpense;
       this.dataExtraction();
     },
+    settleUpHandler(bool){
+      if(bool){
+        this.popSettleUp=!this.popSettleUp
+        this.dataExtraction();
+      }
+    }
   },
   computed: {
     total() {

@@ -52,11 +52,33 @@ export default createStore({
           users: [...group[groupName].users]
         }
       }
+    },
+    settleUpExpense(state, userName) {
+      console.log(state.dashTransaction)
+
+      for (let key in state.dashTransaction) {
+        if (key !== "last") {
+          if (state.dashTransaction[key].paid_by === userName) {
+            delete state.dashTransaction[key]
+          }
+
+          else if (state.dashTransaction[key]["owes"].includes(userName)) {
+            state.dashTransaction[key].owes = state.dashTransaction[key].owes.filter(name => name !== userName)
+            if (state.dashTransaction[key].owes.length === 0) {
+              delete state.dashTransaction[key]
+            }
+          }
+          console.log(state.dashTransaction)
+        }
+      }
     }
   },
   actions: {
     addExpense({ commit }, { amount, paid_by, owes, desc, group }) {
       commit("addNewExpense", { amount, paid_by, owes, desc, group })
+    },
+    settleUp({ commit }, user) {
+      commit("settleUpExpense", user)
     }
   },
   modules: {},

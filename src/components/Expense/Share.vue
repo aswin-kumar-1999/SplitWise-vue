@@ -15,21 +15,21 @@
         "
       >
         <span>Share an expense</span>
-        <i className="fas fa-times" @click="$emit('close', uncheckname)"></i>
+        <i class="fas fa-times" @click="$emit('close', uncheckname)"></i>
       </header>
-      <div className="px-3">
+      <div class="px-3">
         <h4>Split equally</h4>
         <div class="form-check">
           <div v-for="name in nameList" :key="name">
             <input
-              className="form-check-input"
+              class="form-check-input"
               type="checkbox"
               :value="name"
               id="flexCheckChecked"
               defaultChecked
               @change="checkHandler"
             />
-            <label className="form-check-label" for="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
               {{ name }}
             </label>
           </div>

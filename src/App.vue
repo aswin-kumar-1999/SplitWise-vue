@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex align-items-center justify-content-center flex-column">
     <!-- <Header /> -->
-    <div class="d-flex col-md-8 border border-primary">
-      <div class="col-2 border border-success">
+    <div class="d-flex col-md-8 ">
+      <div class="col-2 center-panel ">
         <router-link to="/">Dashboard</router-link>
       </div>
-      <div class="col-8 border border-primary">
+      <div class="col-8 shadow bg-body rounded">
         <router-view />
       </div>
-      <div class="col-2 border border-success">dsfghbkl;''</div>
+      <div class="col-2">dsfghbkl;''</div>
     </div>
   </div>
 </template>
@@ -51,5 +51,8 @@ export default {
   width: 350px;
   border-radius: 5px;
   margin-top: 10vh;
+}
+.center-panel {
+  min-height: 100vh;
 }
 </style>

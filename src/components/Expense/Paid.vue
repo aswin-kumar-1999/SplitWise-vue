@@ -2,14 +2,14 @@
   <BackDrop>
     <div class="card">
       <header
-        className="d-flex justify-content-between 
+        class="d-flex justify-content-between 
            align-items-center px-2 py-1 fs-5 fw-bold
             rounded-top-3 header"
       >
         <span>{{ heading }}</span>
-        <i className="fas fa-times" @click="$emit('onSelectPayer', name)"></i>
+        <i class="fas fa-times" @click="$emit('onSelectPayer', name)"></i>
       </header>
-      <div className="px-3">
+      <div class="px-3">
         <div class="form-check">
           <div v-for="name in nameList" :key="name">
             <input
