@@ -9,7 +9,7 @@
       <div class="center shadow bg-body rounded">
         <router-view />
       </div>
-      <div class="right">dsfghbkl;''</div>
+      <div class="right"></div>
     </div>
   </div>
 </template>

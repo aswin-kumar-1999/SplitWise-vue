@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import GroupBlock from "./GroupBloack.vue";
+import GroupBlock from "./GroupBlock.vue";
 export default {
   name: "Group",
   data() {
