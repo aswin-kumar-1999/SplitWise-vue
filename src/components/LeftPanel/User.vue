@@ -1,12 +1,15 @@
 <template>
-  <router-link :to="uname" class="customRoute">
-    <div
-      class="p-2 my-2 users-groups"
-      v-bind:style="{ display: display }"
+  <router-link :to="url" class="customRoute">
+    <span
+      :class="
+        display == 'block'
+          ? 'p-1 my-2 d-flex float-left'
+          : 'p-1 my-2 d-flex float-left d-none'
+      "
     >
-      <i className="fa fa-user"></i>
+      <i className="fa fa-user p-1 me-1"></i>
       {{ uname }}
-    </div>
+    </span>
   </router-link>
 </template>
 
@@ -14,7 +17,12 @@
 export default {
   name: "User",
   methods: {},
-  props: ["uname", "display"],
+  props: ["uname", "display", "portal"],
+  computed: {
+    url() {
+      return `/${this.portal}/${this.uname}`;
+    },
+  },
 };
 </script>
 

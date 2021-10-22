@@ -11,7 +11,7 @@
       <div v-if="type === 'credit'">
         <div>
           you paid for {{ desc }}
-          <span className="credit">
+          <span className="credit text-wrap">
             {{ lentTo }} lent {{ amount.toFixed(2) }} from you
           </span>
         </div>

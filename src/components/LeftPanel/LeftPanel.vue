@@ -1,6 +1,6 @@
 <template>
   <div className="leftPanel d-flex flex-column me-2">
-    <router-link to="dashboard" class="route">
+    <router-link :to="{name:'DashBoard'}" class="route">
       <div>
         <i className="fa fa-braille p-1"></i>
         Dashboard
@@ -33,14 +33,14 @@
     </router-link>
     <div className="left-links group-user-tag p-2">Groups</div>
 
-    <div v-for="(gname, index) in group" :key="index">
-      <Group :display="groupDisplay[index]" :uname="gname" />
+    <div v-for="(gname, index) in group" :key="index" class="d-flex">
+      <Group :display="groupDisplay[index]" :uname="gname" portal="group" />
     </div>
 
     <div className="left-links group-user-tag p-2">Friends</div>
 
-    <div v-for="(uname, index) in users" :key="index">
-      <Users :display="usersDisplay[index]" :uname="uname" />
+    <div v-for="(uname, index) in users" :key="index" class="d-flex">
+      <Users :display="usersDisplay[index]" :uname="uname" portal="user"/>
     </div>
   </div>
 </template>
@@ -104,6 +104,7 @@ export default {
         this.usersDisplay = newUsersDisplay;
         this.groupDisplay = newGroupDisplay;
       }
+      console.log(this.usersDisplay)
     },
   },
   created() {

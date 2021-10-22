@@ -210,9 +210,7 @@ export default {
   border-radius: 5px;
   padding: 8px;
 }
-.head {
-  background: rgba(236, 236, 236, 0.836);
-}
+
 .owe {
   color: grey;
   font-weight: 600;

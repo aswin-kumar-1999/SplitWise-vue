@@ -75,5 +75,16 @@ export default {
 }
 .head {
   background: rgba(236, 236, 236, 0.836);
+  color: grey;
+}
+.img {
+  width: 50px;
+  height: 50px;
+}
+.groupBlock {
+  height: 80px;
+  border-bottom: 1px solid rgb(175, 173, 173);
+  color: grey;
+
 }
 </style>
