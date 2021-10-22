@@ -30,6 +30,7 @@
               </button>
             </div>
           </div>
+          {{ userChange }}
           <div class="border-top border-bottom border-2">
             <div class="row py-1 fs-6">
               <div class="col-sm-4 border-end text-center">
@@ -68,6 +69,21 @@
           <span>YOU ARE OWED</span>
         </div>
       </div>
+      <div
+        v-if="debt.length === 0 && credit.length === 0"
+        class="
+          d-flex
+          justify-content-center
+          align-items-center
+          my-5
+          flex-column
+        "
+      >
+        <img
+          src="https://assets.splitwise.com/assets/fat_rabbit/app/checkmark-circle-ae319506ad7196dc77eede0aed720a682363d68160a6309f6ebe9ce1983e45f0.png"
+        />
+        <h2>All settled</h2>
+      </div>
       <div class="d-flex">
         <span class="border-end border-1 col-6 color">
           <template v-for="(expense, index) in debt" :key="index">
@@ -89,7 +105,7 @@
     v-if="popSettleUp"
     :debt="debt"
     :credit="credit"
-    user="aswin"
+    :user="this.$store.state.userId"
     :total="lent + owe"
     @onClose="settleUpHandler"
   />
@@ -109,6 +125,7 @@ export default {
       debt: [],
       lent: 0,
       owe: 0,
+      user: "",
       popExpense: false,
       popSettleUp: false,
     };
@@ -117,9 +134,15 @@ export default {
   created() {
     this.dataExtraction();
   },
+  updated() {
+    if (this.user !== this.$store.state.userId) {
+      this.dataExtraction();
+    }
+  },
   methods: {
     dataExtraction() {
-      const user = "aswin";
+      const user = this.$store.state.userId;
+      this.user = user;
       this.credit = [];
       this.debt = [];
       this.lent = 0;
@@ -181,6 +204,12 @@ export default {
     },
   },
   computed: {
+    userChange() {
+      if (this.user !== this.$store.state.userId) {
+        this.dataExtraction();
+      }
+      return "";
+    },
     total() {
       return this.lent + this.owe;
     },

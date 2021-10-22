@@ -12,7 +12,7 @@
         type="credit"
       />
     </div>
-
+    {{ userChange }}
     <div
       v-if="$store.state.credit.length === 0"
       class="d-flex justify-content-center align-items-center my-5 flex-column"
@@ -39,6 +39,8 @@ import ActivityBlock from "./ActivityBlock.vue";
 export default {
   name: "Recent",
   components: { ActivityBlock },
+  computed: {
+  },
 };
 </script>
 

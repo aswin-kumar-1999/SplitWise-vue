@@ -193,7 +193,7 @@ export default {
     },
     addExpenseHandler() {
       if (this.nameList.length >= 2 && !this.err) {
-        const payer = this.payer === "you" ? "aswin" : this.payer;
+        const payer = this.payer === "you" ? this.$store.state.userId : this.payer;
         this.nameErr = false;
         const owes = this.nameList.filter((name) => name !== payer);
 

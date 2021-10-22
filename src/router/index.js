@@ -3,6 +3,7 @@ import DashBoard from "../components/DashBoard/DashBoard.vue"
 import Recent from "../components/Recent/Recent.vue"
 import Group from '../components/Group/Group.vue'
 import User from '../components/User/User.vue'
+import AllExpense from '../components/AllExpense/AllExpense.vue'
 const routes = [
   {
     path: "/",
@@ -20,6 +21,11 @@ const routes = [
     component: Recent
   },
   {
+    path:'/expense',
+    name:"AllExpense",
+    component:AllExpense
+  },
+  {
     path: '/group/:id',
     name: 'Group',
     component: Group
@@ -28,7 +34,7 @@ const routes = [
     path: '/user/:id',
     name: 'User',
     component: User
-  }
+  },
 ];
 
 const router = createRouter({

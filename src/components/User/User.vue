@@ -9,12 +9,11 @@
       <h3>{{ userName }}</h3>
     </div>
 
-    <div v-if="paidBy.length === 0">
+    <div v-if="paidBy.length === 0" class="d-flex justify-content-center flex-column align-items-center mt-5">
       <img
         src="https://assets.splitwise.com/assets/fat_rabbit/app/checkmark-circle-ae319506ad7196dc77eede0aed720a682363d68160a6309f6ebe9ce1983e45f0.png"
       />
       <h2>All settled</h2>
-      {{ paidBy }}
     </div>
     <div v-if="paidBy.length !== 0">
       <div v-for="(person, index) in paidBy" :key="index">

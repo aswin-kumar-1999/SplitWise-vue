@@ -19,7 +19,7 @@
         <select
           className="form-select-md bg-transparent me-5 drop-down"
           aria-label="Default select example"
-          onChange="{this.userHandler}"
+          @change="userHandler"
         >
           <option value="aswin" selected>Aswin</option>
           <option value="harsh">Harsh</option>
@@ -31,7 +31,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name:"Header",
+  methods:{
+    userHandler(event){
+       const user = event.target.value;
+       this.$store.commit("userId",user)
+    }
+  }
+};
 </script>
 
 <style scoped>

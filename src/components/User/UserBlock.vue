@@ -6,9 +6,9 @@
         alt="%"
         class="img mx-3"
       />
-      <span className="group-display-desc-text"> {{ desc }} </span>
     </div>
-    <div>{{ paidBy }} paid ₹{{ amount }} (Your Share {{share}})</div>
+      <span className="group-display-desc-text"> {{ desc }} </span>
+    <div class="text-wrap">{{ paidBy }} paid ₹{{ amount }} (Your Share {{share}})</div>
      <!-- {(this.props.amount / (this.props.sharedBy + 1)).toFixed(2)} -->
   </div>
 </template>

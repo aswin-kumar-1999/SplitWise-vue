@@ -129,7 +129,7 @@ export default {
     },
     settleHandler() {
       this.isSpinner = 1;
-      this.$store.dispatch("settleUp","aswin")
+      this.$store.dispatch("settleUp",this.$store.state.userId)
       setTimeout(() => {
         this.isSpinner = 2;
       }, 2000);
