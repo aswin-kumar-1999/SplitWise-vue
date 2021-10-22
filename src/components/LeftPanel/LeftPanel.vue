@@ -1,12 +1,12 @@
 <template>
-  <div className="leftPanel d-flex flex-column">
+  <div className="leftPanel d-flex flex-column me-2">
     <router-link to="dashboard" class="route">
       <div>
         <i className="fa fa-braille p-1"></i>
         Dashboard
       </div>
     </router-link>
-    <router-link to="activity" class="route">
+    <router-link :to="{name:'Recent'}" class="route">
       <div>
         <i className="fa fa-flag p-1"></i>
         Recent Activity

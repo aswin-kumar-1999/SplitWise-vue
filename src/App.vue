@@ -3,8 +3,8 @@
     <Header />
     <div class="d-flex col-md-8 panel">
       <div class="left">
-        <!-- <router-link to="/">Dashboard</router-link> -->    
-          <LeftPanel />
+        <!-- <router-link to="/">Dashboard</router-link> -->
+        <LeftPanel />
       </div>
       <div class="center shadow bg-body rounded">
         <router-view />
@@ -60,10 +60,11 @@ export default {
 .panel {
   min-height: 100vh;
 }
-.left, .right{
+.left,
+.right {
   width: 200px;
 }
-.center{
+.center {
   width: 800px;
 }
 .route {
@@ -71,5 +72,8 @@ export default {
   width: 180px;
   padding: 10px;
   text-decoration: none;
+}
+.head {
+  background: rgba(236, 236, 236, 0.836);
 }
 </style>

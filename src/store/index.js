@@ -5,7 +5,7 @@ import user from '../data/user.json'
 import group from '../data/group.json'
 
 export default createStore({
-  state: { transaction, user, group, dashTransaction },
+  state: { transaction, user, group, dashTransaction, credit: [], debt: [] },
   mutations: {
     addNewExpense(state, { amount, paid_by, owes, desc, group: groupName }) {
       const lastTransaction = +transaction.last + 1;
@@ -71,6 +71,10 @@ export default createStore({
           console.log(state.dashTransaction)
         }
       }
+    },
+    settlement(state, { credit, debt }) {
+      state.credit = credit;
+      state.debt = debt;
     }
   },
   actions: {
@@ -79,7 +83,7 @@ export default createStore({
     },
     settleUp({ commit }, user) {
       commit("settleUpExpense", user)
-    }
+    },
   },
   modules: {},
 });

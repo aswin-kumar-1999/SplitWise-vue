@@ -86,20 +86,20 @@
     <Expense @close="addExpense" />
   </div>
   <Settle
-      v-if='popSettleUp'
-      :debt="debt"
-      :credit='credit'
-      user="aswin"
-      :total= (lent+owe)
-      @onClose="settleUpHandler"
-    />
+    v-if="popSettleUp"
+    :debt="debt"
+    :credit="credit"
+    user="aswin"
+    :total="lent + owe"
+    @onClose="settleUpHandler"
+  />
 </template>
 
 <script>
 import Credit from "./Credit.vue";
 import Debt from "./Debit.vue";
 import Expense from "../Expense/Expense.vue";
-import Settle from '../Settle/Settle.vue';
+import Settle from "../Settle/Settle.vue";
 
 export default {
   name: "DashBoard",
@@ -164,17 +164,21 @@ export default {
           }
         }
       }
+      this.$store.commit("settlement", {
+        credit: this.credit,
+        debt: this.debt,
+      });
     },
     addExpense() {
       this.popExpense = !this.popExpense;
       this.dataExtraction();
     },
-    settleUpHandler(bool){
-      if(bool){
-        this.popSettleUp=!this.popSettleUp
+    settleUpHandler(bool) {
+      if (bool) {
+        this.popSettleUp = !this.popSettleUp;
         this.dataExtraction();
       }
-    }
+    },
   },
   computed: {
     total() {
