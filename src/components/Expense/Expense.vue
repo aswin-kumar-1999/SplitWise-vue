@@ -109,7 +109,7 @@
             </button>
             <button
               type="submit"
-              class="btn px-3 btn-settle col-3 me-2"
+              class="btn px-3 btn-settle col-3 me-2 "
               @click="addExpenseHandler"
             >
               Save
@@ -252,5 +252,14 @@ export default {
 .category {
   width: 70px;
   height: 70px;
+}
+.btn-settle {
+  cursor: pointer;
+  background-color: #07e2b3;
+  font-size: 14px;
+  color: #e2fdf7;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
 }
 </style>

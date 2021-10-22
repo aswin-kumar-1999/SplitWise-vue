@@ -25,7 +25,7 @@
         @keyup="searchHandler"
       />
     </div>
-    <router-link to="expense" class="route">
+    <router-link :to="{name:'AllExpense'}" class="route">
       <div onClick="{this.displayRight}">
         <i className="fa fa-list-ul pe-1"></i>
         All expensives

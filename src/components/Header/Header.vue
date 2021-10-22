@@ -1,9 +1,9 @@
 <template>
-  <nav className="navbar navbar-expand-lg navbar-light bg-light col-12 p-0">
-    <div className="container-fluid col-12">
-      <div className="d-flex justify-content-between align-items-center ">
-        <a className="navbar-brand px-1" href="#"> Splitwise </a>
-        <!-- <div className="mobile">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 p-0">
+    <div class="container-fluid col-12 ">
+      <div class="d-flex justify-content-between align-items-center " v-bind:style="{width:'100%'}">
+        <a class="navbar-brand px-1" href="#"> Splitwise </a>
+        <div class="mobile" >
             <button
               class="btn btn-primary"
               type="button"
@@ -13,11 +13,11 @@
             >
               <i class="fas fa-align-justify"></i>
             </button>
-          </div> -->
+          </div>
       </div>
-      <div className="lapview bg-transparent">
+      <div class="lapview bg-transparent">
         <select
-          className="form-select-md bg-transparent me-5 drop-down"
+          class="form-select-md bg-transparent me-5 drop-down"
           aria-label="Default select example"
           @change="userHandler"
         >
@@ -53,5 +53,9 @@ export default {
   color: white;
   cursor: pointer;
 }
-
+.headers{
+  width: 100%;
+  display: flex;
+  justify-self: flex-end;
+}
 </style>
