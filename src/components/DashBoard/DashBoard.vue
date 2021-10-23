@@ -135,9 +135,9 @@ export default {
     this.dataExtraction();
   },
   updated() {
-    if (this.user !== this.$store.state.userId) {
-      this.dataExtraction();
-    }
+    // if (this.user !== this.$store.state.userId) {
+    //   this.dataExtraction();
+    // }
   },
   methods: {
     dataExtraction() {

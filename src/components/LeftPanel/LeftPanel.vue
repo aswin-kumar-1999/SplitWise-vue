@@ -1,12 +1,12 @@
 <template>
   <div className="leftPanel d-flex flex-column me-2">
-    <router-link :to="{name:'DashBoard'}" class="route">
+    <router-link :to="{ name: 'DashBoard' }" class="route">
       <div>
         <i className="fa fa-braille p-1"></i>
         Dashboard
       </div>
     </router-link>
-    <router-link :to="{name:'Recent'}" class="route">
+    <router-link :to="{ name: 'Recent' }" class="route">
       <div>
         <i className="fa fa-flag p-1"></i>
         Recent Activity
@@ -25,7 +25,7 @@
         @keyup="searchHandler"
       />
     </div>
-    <router-link :to="{name:'AllExpense'}" class="route">
+    <router-link :to="{ name: 'AllExpense' }" class="route">
       <div onClick="{this.displayRight}">
         <i className="fa fa-list-ul pe-1"></i>
         All expensives
@@ -40,7 +40,7 @@
     <div className="left-links group-user-tag p-2">Friends</div>
 
     <div v-for="(uname, index) in users" :key="index" class="d-flex">
-      <Users :display="usersDisplay[index]" :uname="uname" portal="user"/>
+      <Users :display="usersDisplay[index]" :uname="uname" portal="user" />
     </div>
   </div>
 </template>
@@ -73,12 +73,6 @@ export default {
       }
     },
     searchHandler() {
-      for (let key in this.$store.state.user) {
-        if (!this.users.includes(key)) {
-          this.users = [...this.users, key];
-          this.usersDisplay = [...this.usersDisplay, "block"];
-        }
-      }
       let newGroupDisplay = this.groupDisplay.map((display, index) => {
         if (
           this.group[index].toLowerCase().includes(this.search.toLowerCase())
@@ -104,11 +98,21 @@ export default {
         this.usersDisplay = newUsersDisplay;
         this.groupDisplay = newGroupDisplay;
       }
-      console.log(this.usersDisplay)
+    },
+    updateNewUser() {
+      for (let key in this.$store.state.user) {
+        if (!this.users.includes(key)) {
+          this.users = [...this.users, key];
+          this.usersDisplay = [...this.usersDisplay, "block"];
+        }
+      }
     },
   },
   created() {
     this.storeData();
+  },
+  updated() {
+    this.updateNewUser();
   },
   components: { Users, Group },
 };

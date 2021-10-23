@@ -235,7 +235,6 @@ export default {
   },
   computed: {
     shareamount() {
-      console.log("name", this.nameList, this.amount);
       if (this.nameList.length !== 0 && this.amount > 0) {
         return (+this.amount / this.nameList.length).toFixed(2);
       } else {

@@ -46,6 +46,12 @@
 import Header from "./components/Header/Header.vue";
 import LeftPanel from "./components/LeftPanel/LeftPanel";
 export default {
+  name: "App",
+  data() {
+    return {
+      userCount: 0,
+    };
+  },
   components: { Header, LeftPanel },
 };
 </script>
