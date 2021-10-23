@@ -114,6 +114,11 @@ export default {
   updated() {
     this.updateNewUser();
   },
+  computed:{
+    updates(){
+      return Object.keys(this.$store.state.user)
+    }
+  },
   components: { Users, Group },
 };
 </script>

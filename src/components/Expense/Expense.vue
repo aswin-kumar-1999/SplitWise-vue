@@ -261,4 +261,7 @@ export default {
   border-radius: 5px;
   padding: 8px;
 }
+.error{
+  color:red
+}
 </style>
